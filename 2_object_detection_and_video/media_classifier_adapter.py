@@ -261,6 +261,24 @@ class ImageClassification(ObjectClassification):
             folder_path = f'classification_folders/{category}'
             os.makedirs(folder_path, exist_ok=True)
 
+        # Iterate over the detected objects
+        for obj_info in self.image_info:
+            category = obj_info['category']
+            image = self.image
+            x, y, w, h = obj_info['box']
+            x = abs(x)
+            y = abs(y)
+            w = abs(w)
+            h = abs(h)
+            # Extract the detected object from the image
+            detected_object = image[y:abs(y+h), x:abs(x+w)]
+            print(f"Bounding Box Coordinates: (x={x}, y={y}, w={w}, h={h})")
+            print(f"Detected Object Shape: {detected_object.shape if detected_object is not None else 'Empty'}")
+
+            # Save the detected object to the corresponding category folder
+            save_path = f'classification_folders/{category}/object_{x}_{y}.jpg'
+            cv2.imwrite(save_path, detected_object)
+
     def display_image(self, image):
         """
         Displays the image.
@@ -278,6 +296,7 @@ class ImageClassification(ObjectClassification):
             fig = plt.figure(figsize=(10,8))
             ax = fig.add_subplot(111)
             ax.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+            plt.axis('off')
             plt.show()
         else:
             print("Error: Invalid image format. Cannot display.")
