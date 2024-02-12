@@ -38,9 +38,9 @@ import matplotlib.pyplot as plt
 import os
 
 # Constants
-LABELS_FILE = "files/coco.names"
-WEIGHTS_FILE = "files/yolov4.weights"
-CONFIG_FILE = "files/yolov4.cfg"
+LABELS_FILE = "coco.names"
+WEIGHTS_FILE = "yolov4.weights"
+CONFIG_FILE = "yolov4.cfg"
 CONFIDENCE_THRESHOLD = 0.90
 MIN_DISTANCE = 1.5
 
@@ -336,7 +336,7 @@ class VideoClassification(ObjectClassification):
             None
             """
 
-            output_file = 'files/' + output_file
+            output_file = video_name
             if not frames: # Error detection
                 print("Error: Frames list is empty.")
                 return
