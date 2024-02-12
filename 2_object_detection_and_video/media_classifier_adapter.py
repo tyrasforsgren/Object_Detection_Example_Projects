@@ -271,10 +271,7 @@ class ImageClassification(ObjectClassification):
             w = abs(w)
             h = abs(h)
             # Extract the detected object from the image
-            detected_object = image[y:abs(y+h), x:abs(x+w)]
-            print(f"Bounding Box Coordinates: (x={x}, y={y}, w={w}, h={h})")
-            print(f"Detected Object Shape: {detected_object.shape if detected_object is not None else 'Empty'}")
-
+            detected_object = image[y:(y+h), x:(x+w)]
             # Save the detected object to the corresponding category folder
             save_path = f'classification_folders/{category}/object_{x}_{y}.jpg'
             cv2.imwrite(save_path, detected_object)
